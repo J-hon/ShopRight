@@ -10,13 +10,14 @@ class Login
 
     public function __construct()
     {
+        error_reporting(0);
         $this->db = new DB();
     }
 
-    public function check_login($username, $password)
+    public function login($username, $password)
     {
         $password = md5($password);
-        $sql2 = "SELECT id from users WHERE username = '$username' and password = '$password'";
+        $sql2 = "SELECT * from users WHERE username = '$username' and password = '$password'";
 
         $result = $this->db->runQuery($sql2);
         $user_data = $this->db->fetchArray($result);
@@ -25,21 +26,12 @@ class Login
         if ($count_row == 1)
         {
             // start session
-            $_SESSION['login'] = true;
+            $_SESSION['login'] = TRUE;
             $_SESSION['id'] = $user_data['id'];
             return true;
         } else {
             return false;
         }
-    }
-
-    public function get_username($id)
-    {
-        $sql3="SELECT username FROM users WHERE id = '$id'";
-        $result = $this->db->runQuery($sql3);
-        $user_data = $this->db->fetchArray($result);
-
-        echo $user_data['username'];
     }
 
     // check user session
@@ -50,8 +42,11 @@ class Login
 
     public function user_logout()
     {
-        $_SESSION['login'] = FALSE;
+        $_SESSION['login'] = TRUE;
+
         session_destroy();
+//        unset($_SESSION['id']);
+        header("Location: index.php");
     }
 
 }

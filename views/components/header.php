@@ -20,6 +20,19 @@
            ABC SC
         </a>
 
+<!--        <div class="dropdown">-->
+<!--            <label data-value="">-->
+<!--                <i class="fa fa-user"></i>-->
+<!--            </label>-->
+<!--            <ul>-->
+<!--                <li data-value="1">-->
+<!--                    <a href="logout.php">-->
+<!--                        Logout-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        </div>-->
+
         <div>
             <a href="cart.php">
                 <i class="fas fa-shopping-bag fa-2x"></i>

@@ -3,17 +3,9 @@
     error_reporting(0);
 
     require_once 'controllers/DB.php';
-    require_once 'controllers/Login.php';
     include 'views/components/header.php';
 
     $db = new DB();
-    $user = new Login();
-
-    if (!$user->get_session())
-    {
-        $_SESSION['redirectURL'] = $_SERVER['REQUEST_URI'];
-        header("Location: login.php");
-    }
 
     if (isset($_GET['product_id']))
     {
@@ -172,6 +164,10 @@
                 data: dataRate,
                 success: function (data) {
                     window.location.reload();
+                },
+
+                error: function() {
+                    alert("Error");
                 }
             });
         });

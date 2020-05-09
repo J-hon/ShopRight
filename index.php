@@ -22,7 +22,7 @@
 
                     <div class="col-md-3" id="box">
                         <form class="product-form">
-                            <a href="single-product.php?product_id=<?php echo $row['id'] ?>" target="_blank">
+                            <a href="single-product.php?product_id=<?php echo $row['id'] ?>">
                                 <img class="product_image img-fluid" src="resources/img/products/<?php echo $row["image"]; ?>">
                             </a>
 
@@ -58,13 +58,7 @@
             </div>
         </div>
 
-    <?php
-
-//    if (!isset($_SESSION['login']))
-//    {
-//        $_SESSION['redirectURL'] = $_SERVER['REQUEST_URI'];
-//        echo('<script> location.replace("login.php"); </script>');
-//    }
+<?php
 
     include('views/components/footer.php');
 

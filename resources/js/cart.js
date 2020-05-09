@@ -6,7 +6,7 @@ $(document).ready(function() {
 
 		setTimeout(function () {
 			update_quantity.call(element);
-		}, 1000);
+		}, 500);
 	});
 
 	function update_quantity() {

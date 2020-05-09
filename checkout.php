@@ -1,9 +1,23 @@
 <?php
 
+    error_reporting(0);
     include 'views/components/header.php';
-    include("config.inc.php");
+
     require_once "controllers/DB.php";
+    require_once "controllers/Checkout.php";
+
     $db = new DB();
+    $checkout = new Checkout();
+
+    if (($_SESSION['login']) == FALSE)
+    {
+        $_SESSION['redirectURL'] = $_SERVER['REQUEST_URI'];
+        header('Location: login.php');
+    }
+
+    if (isset($_POST['radioGroup'])) {
+        $shipping_cost = $checkout->getShippingCost();
+    }
 
 ?>
 
@@ -13,15 +27,12 @@
     <?php
 
         if(isset($_SESSION["products"]) && count($_SESSION["products"]) > 0) {
-            $total = 0;
             $cart_box = '';
             $user_id = $_SESSION['id'];
-            $no_of_items = count($_SESSION['products']);
 
-            $query0 = "SELECT * FROM `users` WHERE id ='$user_id'";
-            $res = $db->runQuery($query0);
-            $row = $db->fetchArray($res);
-
+            $query0 = "SELECT * FROM `users` WHERE id ='$checkout->user_id'";
+            $res = $checkout->db->runQuery($query0);
+            $row = $checkout->db->fetchArray($res);
             $user_bal = $row['current_balance'];
 
             if ($_POST['ship_address']) {
@@ -63,7 +74,7 @@
                 </td>
 
                 <td>
-                    <?php echo $product_price; ?>
+                    <?php echo $db->currency; echo sprintf("%01.2f", $product_price); ?>
                 </td>
 
                 <td>
@@ -71,7 +82,7 @@
                 </td>
 
                 <td>
-                    <?php echo $db->currency; echo sprintf("%01.2f", ($product_price * $product_qty)); ?>
+                    <?php echo $checkout->db->currency; echo sprintf("%01.2f", ($product_price * $product_qty)); ?>
                 </td>
 
                 <td>&nbsp;</td>
@@ -79,30 +90,33 @@
 
             <?php
 
-                $subtotal = ($product_price * $product_qty);
-                $total = $total + $subtotal;
+                // calculate cost total of products.
+                $checkout->getTotal($product_price, $product_qty, $shipping_cost);
 
             }
 
-                $grand_total = $total + $shipping_cost;
-                $rem_bal = $user_bal - $grand_total;
+                // get remaining balance.
+                $checkout->bal = $user_bal - $checkout->total;
 
-                $query = "INSERT INTO `orders` (`order_total`, `no_of_items`, `user_id`, `created_at`) 
-                          VALUES ('$total', '$no_of_items', '$user_id');";
-                $db->runQuery($query);
+                // allow transaction only if order total <= current balance
+                $checkout->limit();
 
-                $query2 = "UPDATE `users` SET `current_balance` = '$rem_bal' WHERE `users`.`id` = '$user_id'";
-                $db->runQuery($query2);
+                // insert data into orders table
+                $checkout->saveOrder();
 
-            $shipping_cost = ($shipping_cost)?'Shipping Cost : '.$db->currency. sprintf("%01.2f", $shipping_cost).'<br />':'';
+                // update user current balance
+                $checkout->updateBal();
+
+                // display order details
+                $shipping_cost = 'Shipping Cost '.$db->currency. sprintf("%01.2f", $shipping_cost).'<br />';
                 $cart_box .= "<span>
                                   $shipping_cost
                                   <hr>
-                                    Order total : $db->currency".sprintf("%01.2f", $grand_total)."
+                                    Order total : $db->currency".sprintf("%01.2f", $checkout->total)."
                                     <br>
                                     Previous Balance : $db->currency".sprintf("%01.2f", $user_bal)."
                                     <br>
-                                    Remaining Balance : $db->currency".sprintf("%01.2f", $rem_bal)."
+                                    Remaining Balance : $db->currency".sprintf("%01.2f", $checkout->bal)."
                               </span>";
 
             ?>

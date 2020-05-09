@@ -1,23 +1,40 @@
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <?php
 
     include_once 'controllers/Register.php';
+    include_once 'controllers/Login.php';
+
+    $login = new Login();
     $user = new Register();
+
+    if ($login->get_session())
+    {
+        header('Location: index.php');
+    }
 
     if (isset($_POST['register']))
     {
         $username = $_POST['username'];
         $password = $_POST['password'];
-//        $confirmPass = $_POST['confirm_password'];
+        $confirmPass = $_POST['confirm_password'];
 
-
+        if ($password === $confirmPass)
+        {
             if ($user->register($username, $password))
             {
-                echo "<script>alert('Successful!');</script>";
-                header('Location: index.php');
+                // registration successful
+                header('Location: checkout.php');
             } else {
-                echo "<script>alert('Please, try again later!');</script>";
+                echo '<script type="text/javascript">';
+                echo 'setTimeout(function () { swal("Please try again later!!", "", "error");';
+                echo '});</script>';
             }
-
+        } else {
+            echo '<script type="text/javascript">';
+            echo 'setTimeout(function () { swal("Passwords do not match!", "", "error");';
+            echo '});</script>';
+        }
     }
 
 ?>
@@ -25,14 +42,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>ABC_SC User Register</title>
+    <title>ABC_SC Register User</title>
     <link rel="stylesheet" href="resources/css/login.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400&display=swap" rel="stylesheet">
 </head>
 <body>
 
 <div class="wrap">
-    <form class="login-form" action="login.php" method="post">
+    <form class="login-form" action="register.php" method="post">
         <div class="form-header">
             <h3>Registration Form</h3>
         </div>
@@ -50,10 +67,10 @@
         </div>
 
         <!-- Password Input -->
-<!--        <div class="form-group">-->
-<!--            <label for="">Retype Password</label>-->
-<!--            <input type="password" name="confirm_password" class="form-input">-->
-<!--        </div>-->
+        <div class="form-group">
+            <label for="">Retype Password</label>
+            <input type="password" name="confirm_password" class="form-input">
+        </div>
 
         <!-- Login Button -->
         <div class="form-group">
@@ -63,7 +80,7 @@
         </div>
 
         <div class="form-footer">
-            Already registered! Click Here!
+            Registered? Click Here!
             <a href="login.php">
                 Log in
             </a>

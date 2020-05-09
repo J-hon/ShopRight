@@ -15,6 +15,12 @@ class Rating
 
     public function rate()
     {
+//        if (!isset($_SESSION['login']))
+//        {
+////            echo "<script>console.log('hey');</script>";
+//            header('Location: index.php');
+//        }
+
         $user = $_SESSION['id'];
         $rate = $_POST['rate'];
         $product = $_POST['product_id'];

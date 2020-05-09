@@ -402,3 +402,46 @@ hr{
 		margin-left: 130px;
 	}
 }
+
+.dropdown {
+	margin: 0px auto;
+	position: relative;
+	width: calc(100% - 40px);
+	max-width: 400px;
+}
+
+.dropdown label {
+	/*display: block;*/
+	/*padding: 8px 16px;*/
+	/*background: #EA8C02;*/
+	/*color: #FAFAFA;*/
+	/*text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);*/
+	cursor: pointer;
+}
+
+.dropdown ul {
+	list-style: none;
+	position: absolute;
+	width: auto;
+}
+
+.dropdown ul li {
+	padding: 0px 16px;
+	background: #DDD;
+	color: #343838;
+	text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.8);
+	height: 0px;
+	overflow: hidden;
+	cursor: pointer;
+	transition: height 0.1s linear 0s;
+}
+
+.dropdown ul li:hover,
+.dropdown ul li.selected {
+	color: black;
+}
+
+.dropdown:hover ul li {
+	padding: 8px 16px;
+	height: 34px;
+}

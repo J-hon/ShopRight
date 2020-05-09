@@ -5,6 +5,7 @@
  */
 
 require_once "DB.php";
+
 setlocale(LC_MONETARY,"en_US");
 
 class ShoppingCart
@@ -13,10 +14,12 @@ class ShoppingCart
     public $product_price;
     public $product_image;
     public $db;
+    public $user;
 
     public function __construct()
     {
         $this->db = new DB();
+
     }
 
     // Add product to cart

@@ -15,6 +15,7 @@ class Register
 
     public function register($username, $password)
     {
+        $username = trim($username);
         $password = md5($password);
         $sql = "SELECT * FROM users WHERE username='$username'";
 
@@ -26,8 +27,8 @@ class Register
         if ($count_row == 0)
         {
             $sql1 = "INSERT INTO users(username, password) VALUES ('$username','$password')";
-            $this->db->runQuery($sql1);
-            return true;
+            $result = $this->db->runQuery($sql1);
+            return $result;
         } else {
             return false;
         }
