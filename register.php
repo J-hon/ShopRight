@@ -2,8 +2,8 @@
 
 <?php
 
-    include_once 'controllers/Register.php';
-    include_once 'controllers/Login.php';
+    include_once 'src/controllers/Register.php';
+    include_once 'src/controllers/Login.php';
 
     $login = new Login();
     $user = new Register();
@@ -19,17 +19,22 @@
         $password = $_POST['password'];
         $confirmPass = $_POST['confirm_password'];
 
+        // check if password and confirm password match
         if ($password === $confirmPass)
         {
             if ($user->register($username, $password))
             {
                 // registration successful
                 header('Location: checkout.php');
+
+                // registration failed
             } else {
                 echo '<script type="text/javascript">';
-                echo 'setTimeout(function () { swal("Please try again later!!", "", "error");';
+                echo 'setTimeout(function () { swal("Registration unsuccessful!!!", "", "error");';
                 echo '});</script>';
             }
+
+        // passwords failed check
         } else {
             echo '<script type="text/javascript">';
             echo 'setTimeout(function () { swal("Passwords do not match!", "", "error");';
@@ -43,8 +48,8 @@
 <html>
 <head>
     <title>ABC_SC Register User</title>
-    <link rel="stylesheet" href="resources/css/login.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/login.css">
+    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
 </head>
 <body>
 

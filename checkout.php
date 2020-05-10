@@ -1,10 +1,8 @@
 <?php
 
-    error_reporting(0);
-    include 'views/components/header.php';
-
-    require_once "controllers/DB.php";
-    require_once "controllers/Checkout.php";
+    include 'components/header.php';
+    require_once "src/controllers/DB.php";
+    require_once "src/controllers/Checkout.php";
 
     $db = new DB();
     $checkout = new Checkout();
@@ -108,7 +106,7 @@
                 $checkout->updateBal();
 
                 // display order details
-                $shipping_cost = 'Shipping Cost '.$db->currency. sprintf("%01.2f", $shipping_cost).'<br />';
+                $shipping_cost = 'Shipping Cost '.$checkout->db->currency. sprintf("%01.2f", $shipping_cost).'<br />';
                 $cart_box .= "<span>
                                   $shipping_cost
                                   <hr>
@@ -141,6 +139,14 @@
                     <strong><?php echo $cart_box; ?></strong>
                 </td>
 
+                <td>
+                    <br><br><br><br><br><br>
+                    <a href="success.php" class="btn btn-success btn-block">
+                        Place Order
+                        <i class="fas fa-angle-right"></i>
+                    </a>
+                </td>
+
             </tr>
 
         </tfoot>
@@ -159,6 +165,6 @@
 
 <?php
 
-    include('views/components/footer.php');
+    include('components/footer.php');
 
 ?>

@@ -1,6 +1,6 @@
 <?php
 
-    require_once "controllers/ShoppingCart.php";
+    require_once "src/controllers/ShoppingCart.php";
 
     $cart = new ShoppingCart();
 

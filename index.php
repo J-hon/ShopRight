@@ -1,7 +1,7 @@
 <?php
 
-    require_once 'controllers/DB.php';
-    include 'views/components/header.php';
+    require_once 'src/controllers/DB.php';
+    include 'components/header.php';
 
     $db = new DB();
 
@@ -12,6 +12,7 @@
 
                 <?php
 
+                    // echo products from database
                     $sql_query = "SELECT * FROM products";
                     $result = $db->fetchAssoc($sql_query);
 
@@ -22,8 +23,8 @@
 
                     <div class="col-md-3" id="box">
                         <form class="product-form">
-                            <a href="single-product.php?product_id=<?php echo $row['id'] ?>">
-                                <img class="product_image img-fluid" src="resources/img/products/<?php echo $row["image"]; ?>">
+                            <a href="views/single-product.php?product_id=<?php echo $row['id'] ?>">
+                                <img class="product_image img-fluid" src="assets/img/products/<?php echo $row["image"]; ?>">
                             </a>
 
                             <div class="product-details">
@@ -60,6 +61,6 @@
 
 <?php
 
-    include('views/components/footer.php');
+    include('components/footer.php');
 
 ?>

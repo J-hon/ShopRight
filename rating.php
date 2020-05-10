@@ -1,7 +1,7 @@
 <?php
 
-    require_once "controllers/Rating.php";
-    require_once 'controllers/Login.php';
+    require_once "src/controllers/Rating.php";
+    require_once 'src/controllers/Login.php';
 
     $db = new Rating();
     $user = new Login();

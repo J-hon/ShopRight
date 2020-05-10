@@ -1,8 +1,7 @@
 <?php
 
-    require_once 'controllers/DB.php';
-    require_once 'controllers/ShoppingCart.php';
-    include 'views/components/header.php';
+    require_once 'src/controllers/ShoppingCart.php';
+    include 'components/header.php';
 
     $shop = new ShoppingCart();
 
@@ -51,7 +50,7 @@
 
                                         <tr>
                                             <td>
-                                                <img src="resources/img/products/<?php echo $product_image; ?>" class="img-responsive cart-image" width="100px" height="100px">
+                                                <img src="assets/img/products/<?php echo $product_image; ?>" class="img-responsive cart-image" width="100px" height="100px">
                                                 &nbsp;&nbsp;<?php echo $product_name; ?>
                                             </td>
 
@@ -156,39 +155,40 @@
                     </div>
                 </div>
 
-                <div class="col-md-3 payment">
-                    <div class="container">
-                        <h5 class="text-center">Shipping Info.</h5>
+                    <div class="col-md-3 payment">
+                        <div class="container">
+                            <h5 class="text-center">Shipping Info.</h5>
 
-                        <hr>
+                            <hr>
 
-                        <p>
-                            <input type="radio" id="USD0" value="0" name="radioGroup">
-                            <label for="USD0">Pick up</label>
-                        </p>
+                            <p>
+                                <input type="radio" id="USD0" value="0" name="radioGroup">
+                                <label for="USD0">Pick up</label>
+                            </p>
 
-                        <p>
-                            <input type="radio" id="USD5" value="5" name="radioGroup">
-                            <label for="USD5">UPS</label>
-                        </p>
+                            <p>
+                                <input type="radio" id="USD5" value="5" name="radioGroup">
+                                <label for="USD5">UPS</label>
+                            </p>
 
-                        <input id="inputText" name="ship_address" placeholder="Input shipping address"
-                               class="form-control" type="hidden">
+                            <input id="inputText" name="ship_address" placeholder="Input shipping address"
+                                   class="form-control" type="hidden">
 
-                        <br>
+                            <br>
 
-                        <button type="submit" name="submit" class="btn btn-success btn-block">
-                            Checkout
-                            <i class="fa fa-angle-right"></i>
-                        </button>
+                            <button type="submit" name="submit" class="btn btn-success btn-block">
+                                Pay
+                                <i class="fa fa-angle-right"></i>
+                            </button>
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
 
 <?php
 
-    include('views/components/footer.php');
+    include('components/footer.php');
 
 ?>
 
