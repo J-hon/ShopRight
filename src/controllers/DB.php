@@ -12,6 +12,7 @@ class DB
     private $user = "ABC_SC";
     private $password = "";
     private $database = "ABC_SC";
+
     public $conn;
 
     public $currency = '&#36;';

@@ -34,7 +34,7 @@
                     </div>
                     <h2>we are sorry, but the page you requested was not found</h2>
 
-                    <a href="../index.php" style="color: #666666">
+                    <a href="index.php" style="color: #666666">
                         <i class="fa fa-angle-left"></i>
                         <i class="fa fa-angle-left"></i>
                         Go back home

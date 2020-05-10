@@ -13,13 +13,12 @@ class ShoppingCart
     public $product_name;
     public $product_price;
     public $product_image;
+
     public $db;
-    public $user;
 
     public function __construct()
     {
         $this->db = new DB();
-
     }
 
     // Add product to cart

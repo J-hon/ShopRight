@@ -23,7 +23,7 @@
 
                     <div class="col-md-3" id="box">
                         <form class="product-form">
-                            <a href="views/single-product.php?product_id=<?php echo $row['id'] ?>">
+                            <a href="single-product.php?product_id=<?php echo $row['id'] ?>">
                                 <img class="product_image img-fluid" src="assets/img/products/<?php echo $row["image"]; ?>">
                             </a>
 
