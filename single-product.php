@@ -1,9 +1,11 @@
 <?php
 
     require_once 'src/controllers/DB.php';
+    require_once 'src/controllers/Login.php';
     include 'layouts/header.php';
 
     $db = new DB();
+    $user = new Login();
 
     // get id of selected product
     if (isset($_GET['product_id']))
@@ -140,6 +142,8 @@
 
     include('layouts/footer.php');
 
+    if ($user->get_session())
+    {
 ?>
 
 <script type="text/javascript">
@@ -177,13 +181,17 @@
                 success: function (data)
                 {
                     window.location.reload();
-                },
-
-                error: function()
-                {
-                    alert("Error");
                 }
             });
         });
     });
 </script>
+
+<?php
+    }
+    else
+    {
+        echo '<script type="text/javascript">';
+        echo 'setTimeout(function () { swal("Warning!", "You have to login to rate products", "warning");';
+        echo '});</script>';
+    }

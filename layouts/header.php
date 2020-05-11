@@ -59,7 +59,8 @@
         </nav>
 
 <?php
-    } else
+    }
+    else
     {
 
 ?>
@@ -75,10 +76,14 @@
                 <span class='badge badge-warning' id='cart-container'>
 
                         <?php
+                            $_SESSION['redirectURL'] = 'index.php';
 
-                            if (isset($_SESSION["products"])) {
+                            if (isset($_SESSION["products"]))
+                            {
                                 echo count($_SESSION["products"]);
-                            } else {
+                            }
+                            else
+                            {
                                 echo 0;
                             }
 
@@ -87,6 +92,11 @@
                 </span>
             </a>
         </div>
+
+        <a href="login.php" class="btn btn-outline-success">
+            <i class="fas fa-sign-in-alt"></i>
+            Login
+        </a>
     </nav>
 
 <?php

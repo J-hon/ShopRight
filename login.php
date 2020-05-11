@@ -37,6 +37,7 @@
 <head>
     <title>ABC_SC User login</title>
     <link rel="stylesheet" href="assets/css/login.css">
+    <link rel="stylesheet" href="assets/css/fontawesome/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -72,6 +73,15 @@
                     Sign Up
                 </a>
             </div>
+
+            <div class="form-footer">
+                <a href="index.php">
+                    <i class="fa fa-angle-left"></i>
+                    <i class="fa fa-angle-left"></i>
+                    Go back home
+                </a>
+            </div>
+
         </form>
     </div>
     <!--/.wrap-->

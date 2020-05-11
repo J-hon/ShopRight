@@ -7,7 +7,7 @@
     $db = new DB();
     $checkout = new Checkout();
 
-    if (($_SESSION['login']) == FALSE)
+    if (!$user->get_session())
     {
         $_SESSION['redirectURL'] = $_SERVER['REQUEST_URI'];
         header('Location: login.php');
