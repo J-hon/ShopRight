@@ -1,6 +1,6 @@
 <?php
 
-    include 'components/header.php';
+    include 'layouts/header.php';
     require_once "src/controllers/DB.php";
     require_once "src/controllers/Checkout.php";
 
@@ -13,18 +13,21 @@
         header('Location: login.php');
     }
 
-    if (isset($_POST['radioGroup'])) {
+    // get shipping cost
+    if (isset($_POST['radioGroup']))
+    {
         $shipping_cost = $checkout->getShippingCost();
     }
 
 ?>
 
 <div class="container">	
-    <h3 style="text-align: center">Order Summary</h3>
+    <h3 style="text-align: center">Payment successful</h3>
     <br>
     <?php
 
-        if(isset($_SESSION["products"]) && count($_SESSION["products"]) > 0) {
+        if(isset($_SESSION["products"]) && count($_SESSION["products"]) > 0)
+        {
             $cart_box = '';
             $user_id = $_SESSION['id'];
 
@@ -37,7 +40,9 @@
                 $address = "<p class='font-weight-light'>
                                 Shipping address: ".$_POST['ship_address'].
                             "</p>";
-            } else {
+            }
+            else
+            {
                 $address = '';
             }
     ?>
@@ -57,7 +62,8 @@
 
             <?php
 
-                foreach($_SESSION["products"] as $product){
+                foreach($_SESSION["products"] as $product)
+                {
                     $product_name = $product["product_name"];
                     $product_qty = $product["product_qty"];
                     $product_price = $product["product_price"];
@@ -139,14 +145,6 @@
                     <strong><?php echo $cart_box; ?></strong>
                 </td>
 
-                <td>
-                    <br><br><br><br><br><br>
-                    <a href="success.php" class="btn btn-success btn-block">
-                        Place Order
-                        <i class="fas fa-angle-right"></i>
-                    </a>
-                </td>
-
             </tr>
 
         </tfoot>
@@ -155,7 +153,9 @@
 
             unset($_SESSION['products']);
 
-            } else {
+            }
+            else
+            {
                 echo "Your Cart is empty";
             }
         ?>
@@ -165,6 +165,6 @@
 
 <?php
 
-    include('components/footer.php');
+    include('layouts/footer.php');
 
 ?>

@@ -1,7 +1,7 @@
 <?php
 
     require_once 'src/controllers/ShoppingCart.php';
-    include 'components/header.php';
+    include 'layouts/header.php';
 
     $shop = new ShoppingCart();
 
@@ -15,7 +15,8 @@
 
                             <?php
 
-                                if (isset($_SESSION["products"]) && count($_SESSION["products"]) > 0) {
+                                if (isset($_SESSION["products"]) && count($_SESSION["products"]) > 0)
+                                {
 
                             ?>
 
@@ -37,7 +38,8 @@
                                         $cart_box = '<ul class="cart-products-loaded">';
                                         $total = 0;
 
-                                        foreach ($_SESSION["products"] as $product) {
+                                        foreach ($_SESSION["products"] as $product)
+                                        {
                                             $product_name = $product["product_name"];
                                             $product_price = $product["product_price"];
                                             $product_image = $product["product_image"];
@@ -104,7 +106,8 @@
 
                                         <?php
 
-                                            if (isset($total)) {
+                                            if (isset($total))
+                                            {
 
                                         ?>
 
@@ -126,7 +129,9 @@
 
                                     <?php
 
-                                    } else {
+                                    }
+                                    else
+                                    {
                                         echo "Your Cart is empty";
 
                                         ?>
@@ -188,18 +193,20 @@
 
 <?php
 
-    include('components/footer.php');
+    include('layouts/footer.php');
 
 ?>
 
 <script type="text/javascript">
 
     // radio buttons
-    const showTextBox = () => {
+    const showTextBox = () =>
+    {
         document.getElementById('inputText').type = "text";
     };
 
-    const hideTextBox = () => {
+    const hideTextBox = () =>
+    {
         document.getElementById('inputText').type = "hidden";
     };
 
@@ -209,25 +216,33 @@
     const pickUpBtn = document.querySelector('#USD0');
     pickUpBtn.addEventListener('click', hideTextBox);
 
-    const validate = () => {
+    const validate = () =>
+    {
         let valid = false;
         const x = document.cartForm.radioGroup;
         const y = document.cartForm.ship_address;
 
-        for (let i = 0; i < x.length; i++) {
-            if (x[i].checked) {
+        for (let i = 0; i < x.length; i++)
+        {
+            if (x[i].checked)
+            {
                 valid = true;
                 break;
             }
         }
 
-        if (!(valid)) {
+        if (!(valid))
+        {
             swal("Please select a shipping option!");
             return false;
-        } else if (x[1].checked && !(y.value)) {
+        }
+        else if (x[1].checked && !(y.value))
+        {
             swal("Please insert your shipping address!");
             return false;
-        } else {
+        }
+        else
+        {
             return true;
         }
 

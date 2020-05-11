@@ -1,7 +1,7 @@
 <?php
 
     require_once 'src/controllers/DB.php';
-    include 'components/header.php';
+    include 'layouts/header.php';
 
     $db = new DB();
 
@@ -21,7 +21,9 @@
             $product_image = $row_product['image'];
             $product_name = $row_product['name'];
             $product_price = $row_product['price'];
-        } else {
+        }
+        else
+        {
 
         ?>
 
@@ -109,7 +111,9 @@
                             $sum_rates = array_sum($sum_rates);
                             $rate_value = $sum_rates / $rate_times;
                             $rate_bg = (($rate_value) / 5) * 100;
-                        } else {
+                        }
+                        else
+                        {
                             $rate_times = 0;
                             $rate_value = 0;
                             $rate_bg = 0;
@@ -134,30 +138,35 @@
 
 <?php
 
-    include('components/footer.php');
+    include('layouts/footer.php');
 
 ?>
 
 <script type="text/javascript">
 
-    $(document).ready(function () {
-        $('.rate-btn').hover(function () {
+    $(document).ready(function ()
+    {
+        $('.rate-btn').hover(function ()
+        {
 
             $('.rate-btn').removeClass('rate-btn-hover');
             var therate = $(this).attr('id');
 
-            for (var i = therate; i >= 0; i--) {
+            for (var i = therate; i >= 0; i--)
+            {
                 $('.btn-' + i).addClass('rate-btn-hover');
             }
         });
 
-        $('.rate-btn').click(function () {
+        $('.rate-btn').click(function ()
+        {
 
             var therate = $(this).attr('id');
             var dataRate = 'act=rate&product_id=<?php echo $product_id; ?>&rate=' + therate;
             $('.rate-btn').removeClass('rate-btn-active');
 
-            for (var i = therate; i >= 0; i--) {
+            for (var i = therate; i >= 0; i--)
+            {
                 $('.btn-' + i).addClass('rate-btn-active');
             }
 
@@ -165,11 +174,13 @@
                 type: "POST",
                 url: "rating.php",
                 data: dataRate,
-                success: function (data) {
+                success: function (data)
+                {
                     window.location.reload();
                 },
 
-                error: function() {
+                error: function()
+                {
                     alert("Error");
                 }
             });

@@ -20,7 +20,9 @@
         {
             // Login successful to desired page
             header('Location:'.$_SESSION['redirectURL']);
-        } else {
+        }
+        else
+        {
             // Login failed
             echo '<script type="text/javascript">';
             echo 'setTimeout(function () { swal("Invalid credentials!", "", "error");';

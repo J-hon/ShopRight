@@ -14,7 +14,6 @@ class DB
     private $database = "ABC_SC";
 
     public $conn;
-
     public $currency = '&#36;';
 
     public function __construct()

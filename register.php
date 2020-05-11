@@ -28,14 +28,18 @@
                 header('Location: checkout.php');
 
                 // registration failed
-            } else {
+            }
+            else
+            {
                 echo '<script type="text/javascript">';
                 echo 'setTimeout(function () { swal("Registration unsuccessful!!!", "", "error");';
                 echo '});</script>';
             }
 
         // passwords failed check
-        } else {
+        }
+        else
+        {
             echo '<script type="text/javascript">';
             echo 'setTimeout(function () { swal("Passwords do not match!", "", "error");';
             echo '});</script>';

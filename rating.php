@@ -6,6 +6,7 @@
     $db = new Rating();
     $user = new Login();
 
-    if($_POST['act'] == 'rate') {
+    if($_POST['act'] == 'rate')
+    {
         $db->rate();
     }

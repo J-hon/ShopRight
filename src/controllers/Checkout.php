@@ -9,11 +9,11 @@ class Checkout
     public $db;
     public $user_id;
     public $bal;
-    public $shipping_cost;
-    public $shipping_cost_value;
     public $total = 0;
     public $subTotal = 0;
     public $no_of_items;
+    public $shipping_cost;
+    public $shipping_cost_value;
 
     public function __construct()
     {

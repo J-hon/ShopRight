@@ -1,4 +1,4 @@
-body {
+* {
 	font-family: 'Varela Round', sans-serif;
 }
 
@@ -59,6 +59,7 @@ a {
     background-color: #2874f0;
 	height:55px;
 }
+
 .cart-item {
 	border-radius: 3px;
     background-color: rgba(0, 0, 0, .1);
@@ -71,7 +72,7 @@ a {
     margin-left: 25px;
 }
 
-.shopping-cart-counter{ 
+.shopping-cart-counter {
 	position: absolute;
     left:0;
     right:0;
@@ -86,10 +87,12 @@ a {
 	margin-top: 10px;
 	display:none;
 }
-.shopping-cart-counter a{
+
+.shopping-cart-counter a {
 	color: #FFD5D5;
 	text-decoration:none;
 }
+
 .shopping-cart-counter:after {
 	content: '';
 	position: absolute;
@@ -101,29 +104,35 @@ a {
 	border-right: 8px solid transparent;
 	border-left: 8px solid transparent;
 }
+
 .shopping-cart-counter ul.cart-products-loaded {
 	margin: 0;
 	padding: 0;
 	list-style: none;
 }
+
 .shopping-cart-counter .close-shopping-cart-counter {
   float: right;
 }
-#shopping-cart-results ul.cart-products-loaded li{
+
+#shopping-cart-results ul.cart-products-loaded li {
 	background: #2469d9;
 	margin-bottom: 1px;
 	padding: 6px 4px 6px 10px;
 }
-.shopping-cart-counter .remove-item{
+
+.shopping-cart-counter .remove-item {
 	float:right;
 	text-decoration:none;
 }
-.shopping-cart-counter .cart-products-total{
+
+.shopping-cart-counter .cart-products-total {
 	font-weight: bold;
 	text-align: right;
 	padding: 5px 0px 0px 5px;
 }
-.shopping-cart-counter h3{
+
+.shopping-cart-counter h3 {
 	margin: 0;
 	padding: 0px 0px 5px 0px;
 }
@@ -147,22 +156,24 @@ ul.view-cart {
   border: 1px solid #ECECEC;
   border-radius: 4px;
 }
-ul.view-cart li span{
+
+ul.view-cart li span {
     float: right;
 }
-ul.view-cart li.view-cart-total{
+
+ul.view-cart li.view-cart-total {
   border-top: 1px solid #ddd;
   padding-top: 5px;
   margin-top: 5px;
   text-align: right;
 }
-hr{
+
+hr {
 	border: 0;
     height: 0;
     border-top: 1px solid rgba(0, 0, 0, 0.1);
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
-
 
 .payment {
 	padding: 30px;
@@ -176,8 +187,7 @@ hr{
 }
 
 [type="radio"]:checked + label,
-[type="radio"]:not(:checked) + label
-{
+[type="radio"]:not(:checked) + label {
 	position: relative;
 	padding-left: 30px;
 	cursor: pointer;

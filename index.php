@@ -1,7 +1,7 @@
 <?php
 
     require_once 'src/controllers/DB.php';
-    include 'components/header.php';
+    include 'layouts/header.php';
 
     $db = new DB();
 
@@ -61,6 +61,6 @@
 
 <?php
 
-    include('components/footer.php');
+    include('layouts/footer.php');
 
 ?>
