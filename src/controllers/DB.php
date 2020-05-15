@@ -66,6 +66,7 @@ class DB
 
         if(!empty($resultset)) return $resultset;
     }
+
 }
     
 ?>

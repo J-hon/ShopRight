@@ -7,9 +7,11 @@ require_once "DB.php";
 class Login
 {
     public $db;
+    public $user_id;
 
     public function __construct()
     {
+        $this->user_id = $_SESSION['id'];
         $this->db = new DB();
     }
 
@@ -46,6 +48,19 @@ class Login
 
         session_destroy();
         header("Location: index.php");
+    }
+
+
+    public function showRemainingBalance()
+    {
+        $query = "SELECT current_balance FROM `users` WHERE id ='$this->user_id'";
+        $row = $this->db->fetchAssoc($query);
+
+        foreach ($row as $res){
+            $remainingBalance = $res['current_balance'];
+        }
+
+        return $remainingBalance;
     }
 
 }

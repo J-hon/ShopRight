@@ -128,8 +128,11 @@ a {
 
 .shopping-cart-counter .cart-products-total {
 	font-weight: bold;
-	text-align: right;
 	padding: 5px 0px 0px 5px;
+}
+
+.total {
+	margin: 0px 130px 0px 130px;
 }
 
 .shopping-cart-counter h3 {

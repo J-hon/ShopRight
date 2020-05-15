@@ -90,73 +90,8 @@
                                         </tr>
 
                                     <?php } ?>
-
-                                    <tfoot>
-
-                                    <br><br>
-                                    <tr>
-                                        <td>
-                                            <a href="index.php" class="btn btn-warning">
-                                                <i class="fa fa-angle-left"></i>
-                                                Continue Shopping
-                                            </a>
-                                        </td>
-
-                                        <td colspan="2"></td>
-
-                                        <?php
-
-                                            if (isset($total))
-                                            {
-
-                                        ?>
-
-                                            <td class="text-center cart-products-total">
-                                                Total: <strong>
-                                                    <?php echo $shop->db->currency . sprintf("%01.2f", $total); ?>
-                                                </strong>
-                                            </td>
-
-                                            <td>
-                                                <a href="manage_cart.php?action=clear" class="btn btn-danger btn-block clear">
-                                                    Clear cart <i class="fa fa-shopping-cart"></i>
-                                                </a>
-                                            </td>
-
-                                        <?php } ?>
-                                    </tr>
-                                    </tfoot>
-
-                                    <?php
-
-                                    }
-                                    else
-                                    {
-                                        echo "Your Cart is empty";
-
-                                        ?>
-
-                                        <tfoot>
-                                        <br><br>
-
-                                        <tr>
-                                            <td>
-                                                <a href="index.php" class="btn btn-warning">
-                                                    <i class="fa fa-angle-left"></i>
-                                                    Continue Shopping
-                                                </a>
-                                            </td>
-
-                                            <td colspan="2"></td>
-
-                                        </tr>
-                                        </tfoot>
-
-                                    <?php } ?>
-
-                                    </tbody>
+                                </tbody>
                             </table>
-
                     </div>
                 </div>
 
@@ -188,9 +123,75 @@
                         </div>
                     </div>
                 </form>
+
+
+                <table>
+                    <tbody>
+
+                    <br><br>
+                    <tr>
+                        <td>
+                            <a href="index.php" class="btn btn-warning">
+                                <i class="fa fa-angle-left"></i>
+                                Continue Shopping
+                            </a>
+                        </td>
+
+                        <td colspan="2"></td>
+
+                        <?php
+
+                        if (isset($total))
+                        {
+
+                            ?>
+
+                            <td class="text-center cart-products-total">
+                                <h6 style="margin: 0px 130px 0px 130px">Total: <strong>
+                                    <?php echo $shop->db->currency . sprintf("%01.2f", $total); ?>
+                                </strong></h6>
+                            </td>
+
+                            <td>
+                                <a href="manage_cart.php?action=clear" class="btn btn-danger btn-block clear">
+                                    Clear cart <i class="fa fa-shopping-cart"></i>
+                                </a>
+                            </td>
+
+                        <?php } ?>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <?php
+
+                    }
+                    else
+                    {
+                        echo "Your Cart is empty";
+
+                ?>
+
+                        <table>
+                            <tfoot>
+                            <br><br>
+
+                            <tr>
+                                <td>
+                                    <a href="index.php" class="btn btn-warning">
+                                        <i class="fa fa-angle-left"></i>
+                                        Continue Shopping
+                                    </a>
+                                </td>
+
+                                <td colspan="2"></td>
+
+                            </tr>
+                            </tfoot>
+                        </table>
+                    <?php } ?>
             </div>
         </div>
-
 <?php
 
     include('layouts/footer.php');

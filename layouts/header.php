@@ -52,6 +52,45 @@
                 </a>
             </div>
 
+            <?php
+
+                if($user->showRemainingBalance() <= 30)
+                {
+            ?>
+
+            <h6 class="font-weight-bolder" style="color: #C82333">
+                Current balance:
+                <?php echo $user->db->currency . $user->showRemainingBalance(); ?>
+            </h6>
+
+            <?php
+                }
+                else if ($user->showRemainingBalance() > 30 && $user->showRemainingBalance() <= 70) {
+
+            ?>
+
+            <h6 class="font-weight-bolder" style="color: #E0A800">
+                Current balance:
+                <?php echo $user->db->currency . $user->showRemainingBalance(); ?>
+            </h6>
+
+            <?php
+
+                }
+                else {
+
+                    ?>
+
+                    <h6 class="font-weight-bolder" style="color: #28A745">
+                        Current balance:
+                        <?php echo $user->db->currency . $user->showRemainingBalance(); ?>
+                    </h6>
+
+                    <?php
+                }
+            ?>
+
+
             <a href="logout.php" class="btn btn-outline-danger">
                 <i class="fas fa-sign-out-alt"></i>
                 Logout
@@ -59,9 +98,9 @@
         </nav>
 
 <?php
+
     }
-    else
-    {
+    else {
 
 ?>
 
