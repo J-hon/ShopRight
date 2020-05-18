@@ -1,11 +1,10 @@
 <?php
 
-    require_once 'src/controllers/DB.php';
-    require_once 'src/controllers/Login.php';
+    include_once 'includes/autoloader.inc.php';
     include 'layouts/header.php';
 
-    $db = new DB();
     $user = new Login();
+    $db = new DB();
 
     // get id of selected product
     if (isset($_GET['product_id']))
@@ -14,15 +13,17 @@
         $product_id = $_GET['product_id'];
 
         // select id from database
-        $get_product = "SELECT * FROM products WHERE id='$product_id'";
-        $run_product = $db->runQuery($get_product);
-        $row_product = $db->fetchArray($run_product);
+        $stmt = $db->dsn->prepare("SELECT * FROM products WHERE id = ?");
+        $stmt->execute([$product_id]);
+        $row_product = $stmt->rowCount();
 
-        if ($db->numRows($run_product) > 0)
+        if ($row_product > 0)
         {
-            $product_image = $row_product['image'];
-            $product_name = $row_product['name'];
-            $product_price = $row_product['price'];
+            while ($row = $stmt->fetch()) {
+                $product_image = $row['image'];
+                $product_name = $row['name'];
+                $product_price = $row['price'];
+            }
         }
         else
         {
@@ -75,7 +76,7 @@
                 <h3 class="font-weight-light">
                     <?php
 
-                        echo $db->currency;
+                        echo $db->getCurrency();
                         echo $product_price;
 
                     ?>
@@ -98,8 +99,9 @@
                     <?php
 
                         // average ratings
-                        $query = "SELECT * FROM ratings where product_id = '$product_id'";
-                        $result = $db->fetchAssoc($query);
+                        $query = $db->dsn->prepare("SELECT * FROM ratings where product_id = ?");
+                        $query->execute([$product_id]);
+                        $result = $query->fetchAll();
 
                         foreach($result as $data)
                         {

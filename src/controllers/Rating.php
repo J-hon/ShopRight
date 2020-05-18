@@ -1,17 +1,11 @@
 <?php
 
-/** Rating controller */
+/**
+ * Rating controller
+ */
 
-require_once "DB.php";
-
-class Rating
+class Rating extends DB
 {
-    public $db;
-
-    public function __construct()
-    {
-        $this->db = new DB();
-    }
 
     public function rate()
     {
@@ -19,14 +13,21 @@ class Rating
         $rate = $_POST['rate'];
         $product = $_POST['product_id'];
 
-        $query = $this->db->runQuery("SELECT * FROM ratings where user_id= '$user' and product_id = '$product'");
+        $stmt = $this->dsn->prepare("SELECT * FROM ratings where user_id = ? and product_id = ?");
+        $stmt->execute([$user, $product]);
 
-        while($data = $this->db->fetchArray($query)) {
+        while($data = $stmt->fetch()) {
             $rate_db[] = $data;
         }
 
-        if(count($rate_db) == 0) {
-            $this->db->runQuery("INSERT INTO ratings (product_id, user_id, rate)VALUES('$product', '$user', '$rate')");
+        if($stmt->rowCount() == 0) {
+            $stmt1 = $this->dsn->prepare("INSERT INTO ratings (product_id, user_id, rate)VALUES(?, ?, ?)");
+
+            $stmt1->bindParam(1, $product, PDO::PARAM_INT);
+            $stmt1->bindParam(2, $user, PDO::PARAM_INT);
+            $stmt1->bindParam(3, $rate, PDO::PARAM_INT);
+
+            $stmt1->execute();
         }
     }
 }

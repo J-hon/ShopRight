@@ -1,9 +1,10 @@
 <?php
 
-    require_once 'src/controllers/ShoppingCart.php';
+    include_once 'includes/autoloader.inc.php';
     include 'layouts/header.php';
 
     $shop = new ShoppingCart();
+    $currency = $shop->getCurrency();
 
 ?>
 
@@ -58,7 +59,7 @@
 
                                             <td>
                                                 <p class="font-italic font-weight-light price-top">
-                                                    <?php echo $shop->db->currency;
+                                                    <?php echo $currency;
 
                                                         echo sprintf("%01.2f", $product_price);
 
@@ -75,7 +76,7 @@
 
                                             <td>
                                                 <p class="font-italic font-weight-light price-top">
-                                                    <?php echo $shop->db->currency;
+                                                    <?php echo $currency;
                                                         echo sprintf("%01.2f", ($product_price * $product_qty)); ?>
                                                 </p>
                                             </td>
@@ -148,7 +149,7 @@
 
                             <td class="text-center cart-products-total">
                                 <h6 style="margin: 0px 130px 0px 130px">Total: <strong>
-                                    <?php echo $shop->db->currency . sprintf("%01.2f", $total); ?>
+                                    <?php echo $currency . sprintf("%01.2f", $total); ?>
                                 </strong></h6>
                             </td>
 

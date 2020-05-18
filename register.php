@@ -2,8 +2,7 @@
 
 <?php
 
-    include_once 'src/controllers/Register.php';
-    include_once 'src/controllers/Login.php';
+    include_once 'includes/autoloader.inc.php';
 
     $login = new Login();
     $user = new Register();
@@ -22,20 +21,11 @@
         // check if password and confirm password match
         if ($password === $confirmPass)
         {
-            if ($user->register($username, $password))
+            if ($user->registerUser($username, $password))
             {
                 // registration successful
-                header('Location: checkout.php');
-
-                // registration failed
+                header('Location: login.php');
             }
-            else
-            {
-                echo '<script type="text/javascript">';
-                echo 'setTimeout(function () { swal("Registration unsuccessful!!!", "", "error");';
-                echo '});</script>';
-            }
-
         // passwords failed check
         }
         else

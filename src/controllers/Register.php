@@ -1,35 +1,36 @@
 <?php
 
-/** Register controller */
+/**
+ * Register controller
+ */
 
-require_once "DB.php";
-
-class Register
+class Register extends DB
 {
-    public $db;
 
-    public function __construct()
-    {
-        $this->db = new DB();
-    }
-
-    public function register($username, $password)
+    /**
+     * @return bool
+     */
+    public function registerUser(string $username, string $password): bool
     {
         $username = trim($username);
-        $password = md5($password);
-        $sql = "SELECT * FROM users WHERE username='$username'";
+        $password = password_hash($password, PASSWORD_DEFAULT);
+
+        $stmt = $this->dsn->prepare("SELECT * FROM users WHERE username = ?");
+        $stmt->execute([$username]);
 
         // checking if the username is available
-        $check =  $this->db->runQuery($sql) ;
-        $count_row = $this->db->numRows($check);
+        $count_row = $stmt->rowCount();
 
         // if username is available, then insert to the table
         if ($count_row == 0)
         {
-            $sql1 = "INSERT INTO users(username, password) VALUES ('$username','$password')";
-            $result = $this->db->runQuery($sql1);
+            $sql = $this->dsn->prepare("INSERT INTO users(username, password) VALUES (?, ?)");
+            $result = $sql->execute([$username, $password]);
             return $result;
         } else {
+            echo '<script type="text/javascript">';
+            echo 'setTimeout(function () { swal("Username already exists!!!", "Please pick a different one.", "error");';
+            echo '});</script>';
             return false;
         }
     }

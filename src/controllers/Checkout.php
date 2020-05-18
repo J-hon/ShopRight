@@ -1,28 +1,38 @@
 <?php
 
-/** Checkout controller */
+/**
+ * Checkout controller
+ */
 
-require_once "DB.php";
-
-class Checkout
+class Checkout extends DB
 {
-    public $db;
-    public $user_id;
+    protected $shipping_cost;
+    protected $total = 0;
+    protected $subTotal = 0;
+    protected $user_id;
     public $bal;
-    public $total = 0;
-    public $subTotal = 0;
-    public $no_of_items;
-    public $shipping_cost;
-    public $shipping_cost_value;
+    protected $no_of_items;
+    protected $shipping_cost_value;
 
     public function __construct()
     {
-        $this->db = new DB();
+        parent::__construct();
         $this->user_id = $_SESSION['id'];
         $this->no_of_items = count($_SESSION['products']);
     }
 
-    public function getShippingCost()
+    /**
+     * @return string
+     */
+    public function getUserId()
+    {
+        return $this->user_id;
+    }
+
+    /**
+     * @return float
+     */
+    public function getShippingCost(): float
     {
         $this->shipping_cost_value = $_POST['radioGroup'];
 
@@ -35,28 +45,31 @@ class Checkout
         return $this->shipping_cost;
     }
 
-    public function getTotal($price, $qty, $shipping_cost)
+    public function getTotal(float $price, int $qty, float $shipping_cost): float
     {
         $this->subTotal = ($price * $qty);
         $this->total = $this->total + $this->subTotal + $shipping_cost;
+
+        return $this->total;
     }
 
     public function saveOrder()
     {
-        $query = "INSERT INTO `orders` (`order_total`, `no_of_items`, `user_id`) VALUES ('$this->total', '$this->no_of_items', '$this->user_id');";
-        $this->db->runQuery($query);
+        $query = $this->dsn->prepare("INSERT INTO `orders` (`order_total`, `no_of_items`, `user_id`) VALUES (?, ?, ?);");
+        $query->execute([$this->total, $this->no_of_items, $this->user_id]);
     }
 
     public function updateBal()
     {
-        $query = "UPDATE `users` SET `current_balance` = '$this->bal' WHERE `users`.`id` = '$this->user_id'";
-        $this->db->runQuery($query);
+        $query = $this->dsn->prepare("UPDATE `users` SET `current_balance` = ? WHERE `users`.`id` = ?");
+        $query->execute([$this->bal, $this->user_id]);
     }
 
     public function limit()
     {
-        $query3 = "SELECT current_balance FROM `users` WHERE id ='$this->user_id'";
-        $row = $this->db->fetchAssoc($query3);
+        $stmt = $this->dsn->prepare("SELECT current_balance FROM `users` WHERE id = ?");
+        $stmt->execute([$this->user_id]);
+        $row = $stmt->fetchAll();
 
         foreach ($row as $res){
             $balance = $res['current_balance'];

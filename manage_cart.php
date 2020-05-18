@@ -1,6 +1,6 @@
 <?php
 
-    require_once "src/controllers/ShoppingCart.php";
+    include_once 'includes/autoloader.inc.php';
 
     $cart = new ShoppingCart();
 

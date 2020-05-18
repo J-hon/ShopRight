@@ -18,8 +18,7 @@
 
 <?php
 
-    require_once 'src/controllers/Login.php';
-
+    include_once 'includes/autoloader.inc.php';
     $user = new Login();
 
     if ($user->get_session())
@@ -42,7 +41,8 @@
                         if(isset($_SESSION["products"]))
                         {
                             echo count($_SESSION["products"]);
-                        } else {
+                        } 
+                        else {
                             echo 0;
                         }
 
@@ -53,25 +53,28 @@
             </div>
 
             <?php
+            
+                $currentBalance = $user->showRemainingBalance();
+                $currency = $user->getCurrency();
 
-                if($user->showRemainingBalance() <= 30)
+                if($currentBalance <= 30)
                 {
             ?>
 
             <h6 class="font-weight-bolder" style="color: #C82333">
                 Current balance:
-                <?php echo $user->db->currency . $user->showRemainingBalance(); ?>
+                <?php echo $currency . $currentBalance; ?>
             </h6>
 
             <?php
                 }
-                else if ($user->showRemainingBalance() > 30 && $user->showRemainingBalance() <= 70) {
+                else if ($currentBalance > 30 && $currentBalance <= 70) {
 
             ?>
 
             <h6 class="font-weight-bolder" style="color: #E0A800">
                 Current balance:
-                <?php echo $user->db->currency . $user->showRemainingBalance(); ?>
+                <?php echo $currency . $currentBalance; ?>
             </h6>
 
             <?php
@@ -83,7 +86,7 @@
 
                     <h6 class="font-weight-bolder" style="color: #28A745">
                         Current balance:
-                        <?php echo $user->db->currency . $user->showRemainingBalance(); ?>
+                        <?php echo $currency . $currentBalance; ?>
                     </h6>
 
                     <?php
@@ -115,14 +118,14 @@
                 <span class='badge badge-warning' id='cart-container'>
 
                         <?php
+                        
                             $_SESSION['redirectURL'] = 'index.php';
 
                             if (isset($_SESSION["products"]))
                             {
                                 echo count($_SESSION["products"]);
-                            }
-                            else
-                            {
+                            } 
+                            else {
                                 echo 0;
                             }
 

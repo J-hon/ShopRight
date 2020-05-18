@@ -1,11 +1,10 @@
 <?php
 
     include 'layouts/header.php';
-    require_once "src/controllers/DB.php";
-    require_once "src/controllers/Checkout.php";
+    include_once 'includes/autoloader.inc.php';
 
-    $db = new DB();
     $checkout = new Checkout();
+    $currency = $checkout->getCurrency();
 
     if (!$user->get_session())
     {
@@ -29,11 +28,10 @@
         if(isset($_SESSION["products"]) && count($_SESSION["products"]) > 0)
         {
             $cart_box = '';
-            $user_id = $_SESSION['id'];
 
-            $query0 = "SELECT * FROM `users` WHERE id ='$checkout->user_id'";
-            $res = $checkout->db->runQuery($query0);
-            $row = $checkout->db->fetchArray($res);
+            $stmt = $checkout->dsn->prepare("SELECT * FROM `users` WHERE id = ?");
+            $stmt->execute([$checkout->getUserId()]);
+            $row = $stmt->fetch();
             $user_bal = $row['current_balance'];
 
             if ($_POST['ship_address']) {
@@ -78,7 +76,7 @@
                 </td>
 
                 <td>
-                    <?php echo $db->currency; echo sprintf("%01.2f", $product_price); ?>
+                    <?php echo $currency; echo sprintf("%01.2f", $product_price); ?>
                 </td>
 
                 <td>
@@ -86,7 +84,7 @@
                 </td>
 
                 <td>
-                    <?php echo $checkout->db->currency; echo sprintf("%01.2f", ($product_price * $product_qty)); ?>
+                    <?php echo $currency; echo sprintf("%01.2f", ($product_price * $product_qty)); ?>
                 </td>
 
                 <td>&nbsp;</td>
@@ -95,12 +93,12 @@
             <?php
 
                 // calculate cost total of products.
-                $checkout->getTotal($product_price, $product_qty, $shipping_cost);
+                $total = $checkout->getTotal($product_price, $product_qty, $shipping_cost);
 
             }
 
                 // get remaining balance.
-                $checkout->bal = $user_bal - $checkout->total;
+                $checkout->bal = $user_bal - $total;
 
                 // allow transaction only if order total <= current balance
                 $checkout->limit();
@@ -112,15 +110,15 @@
                 $checkout->updateBal();
 
                 // display order details
-                $shipping_cost = 'Shipping Cost '.$checkout->db->currency. sprintf("%01.2f", $shipping_cost).'<br />';
+                $shipping_cost = 'Shipping Cost '.$currency. sprintf("%01.2f", $shipping_cost).'<br />';
                 $cart_box .= "<span>
                                   $shipping_cost
                                   <hr>
-                                    Order total : $db->currency".sprintf("%01.2f", $checkout->total)."
+                                    Order total : $currency".sprintf("%01.2f", $total)."
                                     <br>
-                                    Previous Balance : $db->currency".sprintf("%01.2f", $user_bal)."
+                                    Previous Balance : $currency".sprintf("%01.2f", $user_bal)."
                                     <br>
-                                    Remaining Balance : $db->currency".sprintf("%01.2f", $checkout->bal)."
+                                    Remaining Balance : $currency".sprintf("%01.2f", $checkout->bal)."
                               </span>";
 
             ?>

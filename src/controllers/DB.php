@@ -1,6 +1,8 @@
 <?php
 
-/** Database controller */
+/**
+ * Database controller
+ */
 
 session_start();
 error_reporting(0);
@@ -8,65 +10,42 @@ error_reporting(0);
 class DB
 {
 
-    private $host = "localhost";
+    private  $server = "mysql:host=localhost;dbname=ABC_SC";
     private $user = "ABC_SC";
     private $password = "";
-    private $database = "ABC_SC";
+    private $options  = [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+    ];
 
-    public $conn;
-    public $currency = '&#36;';
+    protected $con;
+    public $dsn;
+    protected $currency = '&#36;';
 
     public function __construct()
     {
-        $this->conn = $this->connectDB();
+        $this->dsn = $this->connectDB();
     }
 
-    private function connectDB()
+    public function connectDB()
     {
-        $conn = mysqli_connect($this->host, $this->user, $this->password, $this->database) or die("Connection failed: " . mysqli_connect_error());
-
-        if (mysqli_connect_errno())
+        try
         {
-            printf("Connect failed: %s\n", mysqli_connect_error());
-            exit();
+            $this->con = new PDO($this->server, $this->user,$this->password,$this->options);
+            return $this->con;
         }
-
-        return $conn;
-    }
-
-    // Run a single query
-    public function runQuery($query)
-    {
-        $result = mysqli_query($this->conn, $query);
-        return $result;
-    }
-
-    // Fetch an associative array from database
-    public function fetchArray($result)
-    {
-        $fetchAssoc = mysqli_fetch_assoc($result);
-        return $fetchAssoc;
-    }
-
-    // Fetch number of rows from database
-    public function numRows($result)
-    {
-        $rowcount = mysqli_num_rows($result);
-        return $rowcount;
-    }
-
-    // Combination of runQuery and fetchArray
-    public function fetchAssoc($query)
-    {
-        $result = mysqli_query($this->conn, $query);
-        while($row = mysqli_fetch_array($result))
+        catch (PDOException $e)
         {
-            $resultset[] = $row;
+            echo "There is some problem in connection: " . $e->getMessage();
         }
+    }
 
-        if(!empty($resultset)) return $resultset;
+    /**
+     * @return string
+     */
+    public function getCurrency(): string
+    {
+        return $this->currency;
     }
 
 }
-    
-?>

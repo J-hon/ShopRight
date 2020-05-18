@@ -2,7 +2,7 @@
 
 <?php
 
-    include_once 'src/controllers/Login.php';
+    include_once 'includes/autoloader.inc.php';
     $user = new Login();
 
     if ($user->get_session())
@@ -16,10 +16,11 @@
         $password = $_POST['password'];
 
         $login = $user->login($username, $password);
+
         if ($login)
         {
             // Login successful to desired page
-            header('Location:'.$_SESSION['redirectURL']);
+            header('Location:' . $_SESSION['redirectURL']);
         }
         else
         {

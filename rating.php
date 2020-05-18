@@ -1,6 +1,6 @@
 <?php
 
-    require_once "src/controllers/Rating.php";
+    include_once 'includes/autoloader.inc.php';
 
     $db = new Rating();
 

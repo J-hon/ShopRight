@@ -1,6 +1,6 @@
 <?php
 
-    require_once 'src/controllers/DB.php';
+    include_once 'includes/autoloader.inc.php';
     include 'layouts/header.php';
 
     $db = new DB();
@@ -12,9 +12,9 @@
 
                 <?php
 
-                    // echo products from database
-                    $sql_query = "SELECT * FROM products";
-                    $result = $db->fetchAssoc($sql_query);
+                    // display products from database
+                    $query = "SELECT * FROM products";
+                    $result = $db->dsn->query($query);
 
                     foreach($result as $row)
                     {
@@ -35,7 +35,7 @@
                                 </h6>
 
                                 <div class="text-center">
-                                    <?php echo $db->currency; echo $row["price"]; ?>
+                                    <?php echo $db->getCurrency(); echo $row["price"]; ?>
 
                                     <div class="form-group col-sm-9 col-md-4 col-lg-4 cart-quantity" id="quantity">
                                         <input type="number" min="1" class="form-control in" name="product_qty" value="1">

@@ -1,44 +1,59 @@
 <?php
 
-/** Login controller */
+/**
+ * Login controller
+ */
 
-require_once "DB.php";
-
-class Login
+class Login extends DB
 {
-    public $db;
     public $user_id;
 
     public function __construct()
     {
-        $this->user_id = $_SESSION['id'];
-        $this->db = new DB();
+        parent::__construct();
+        if (isset($_SESSION['id']))
+        {
+            $this->user_id = $_SESSION['id'];
+        }
     }
 
-    public function login($username, $password)
+    /**
+     * @return bool
+     */
+    public function login(string $username, string $password): bool
     {
-        $password = md5($password);
-        $sql2 = "SELECT * from users WHERE username = '$username' and password = '$password'";
 
-        $result = $this->db->runQuery($sql2);
-        $user_data = $this->db->fetchArray($result);
-        $count_row = $this->db->numRows($result);
+        $stmt = $this->dsn->prepare("SELECT * from users WHERE username = ?");
+        $stmt->execute([$username]);
+        $count_row = $stmt->rowCount();
 
-        if ($count_row == 1)
+        if ($count_row > 0)
         {
-            // start session
-            $_SESSION['login'] = TRUE;
-            $_SESSION['id'] = $user_data['id'];
-            return true;
-        } else {
-            return false;
+            while ($row = $stmt->fetch())
+            {
+                if (password_verify($password, $row['password']))
+                {
+                    // start session
+                    $_SESSION['login'] = TRUE;
+                    $_SESSION['id'] = $row['id'];
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
         }
+
+        return false;
     }
 
     // check user session
     public function get_session()
     {
-        return $_SESSION['login'];
+        if (isset($_SESSION['login']))
+        {
+            return $_SESSION['login'];
+        }
     }
 
     public function user_logout()
@@ -50,11 +65,15 @@ class Login
         header("Location: index.php");
     }
 
-
-    public function showRemainingBalance()
+    /**
+     * @return float
+     */
+    public function showRemainingBalance(): float
     {
-        $query = "SELECT current_balance FROM `users` WHERE id ='$this->user_id'";
-        $row = $this->db->fetchAssoc($query);
+
+        $stmt = $this->dsn->prepare("SELECT current_balance FROM `users` WHERE id = ?");
+        $stmt->execute([$this->user_id]);
+        $row = $stmt->fetchAll();
 
         foreach ($row as $res){
             $remainingBalance = $res['current_balance'];

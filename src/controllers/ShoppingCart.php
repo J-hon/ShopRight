@@ -1,25 +1,16 @@
 <?php
 
 /**
- * The shopping cart model
+ * Shopping cart controller
  */
-
-require_once "DB.php";
 
 setlocale(LC_MONETARY,"en_US");
 
-class ShoppingCart
+class ShoppingCart extends DB
 {
-    public $product_name;
-    public $product_price;
-    public $product_image;
-
-    public $db;
-
-    public function __construct()
-    {
-        $this->db = new DB();
-    }
+    private $product_name;
+    private $product_price;
+    private $product_image;
 
     // Add product to cart
     public function addProduct()
@@ -29,12 +20,14 @@ class ShoppingCart
                $product[$key] = filter_var($value, FILTER_SANITIZE_STRING);
            }
 
-           $statement = $this->db->conn->prepare("SELECT name, price, image FROM products WHERE code=? LIMIT 1");
-           $statement->bind_param('s', $product['product_code']);
-           $statement->execute();
-           $statement->bind_result($this->product_name, $this->product_price, $this->product_image);
+           $stmt = $this->dsn->prepare("SELECT * FROM products WHERE code = ? LIMIT 1");
+           $stmt->execute([$product['product_code']]);
 
-           while($statement->fetch())
+           $stmt->bindColumn('name', $this->product_name);
+           $stmt->bindColumn('price', $this->product_price);
+           $stmt->bindColumn('image', $this->product_image);
+
+           while($stmt->fetch())
            {
                $product["product_name"] = $this->product_name;
                $product["product_price"] = $this->product_price;
