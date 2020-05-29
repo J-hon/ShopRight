@@ -1,7 +1,10 @@
 <?php
 
     include_once 'includes/autoloader.inc.php';
-    include 'layouts/header.php';
+    include_once 'layouts/header.php';
+
+    use App\Models\DB;
+
 
     $user = new Login();
     $db = new DB();
@@ -25,12 +28,11 @@
                 $product_price = $row['price'];
             }
         }
-        else
-        {
+        else {
 
         ?>
 
-<!--            Error 404 page if product id not found-->
+            <!-- Error 404 page if product id not found -->
             <div id="notfound">
                 <div class="notfound">
                     <div class="notfound-404">
@@ -74,12 +76,14 @@
                 </h1>
 
                 <h3 class="font-weight-light">
+
                     <?php
 
                         echo $db->getCurrency();
                         echo $product_price;
 
                     ?>
+
                 </h3>
 
                 <br><br>
@@ -116,8 +120,7 @@
                             $rate_value = $sum_rates / $rate_times;
                             $rate_bg = (($rate_value) / 5) * 100;
                         }
-                        else
-                        {
+                        else {
                             $rate_times = 0;
                             $rate_value = 0;
                             $rate_bg = 0;
@@ -142,7 +145,7 @@
 
 <?php
 
-    include('layouts/footer.php');
+    include_once 'layouts/footer.php';
 
     if ($user->get_session())
     {
@@ -191,8 +194,7 @@
 
 <?php
     }
-    else
-    {
+    else {
         echo '<script type="text/javascript">';
         echo 'setTimeout(function () { swal("Warning!", "You have to login to rate products", "warning");';
         echo '});</script>';

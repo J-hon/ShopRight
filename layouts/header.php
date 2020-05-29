@@ -12,6 +12,7 @@
 
     <link rel="icon" type="image/png" sizes="512x512" href="assets/img/favicon.png">
     <title>ABC Shopping cart</title>
+
 </head>
 
 <body>
@@ -36,19 +37,19 @@
                     <i class="fas fa-shopping-bag fa-2x"></i>
                     <span class='badge badge-warning' id='cart-container'>
 
-                    <?php
+                        <?php
 
-                        if(isset($_SESSION["products"]))
-                        {
-                            echo count($_SESSION["products"]);
-                        } 
-                        else {
-                            echo 0;
-                        }
+                            if(isset($_SESSION["products"]))
+                            {
+                                echo count($_SESSION["products"]);
+                            }
+                            else {
+                                echo 0;
+                            }
 
-                    ?>
+                        ?>
 
-                </span>
+                    </span>
                 </a>
             </div>
 
@@ -59,6 +60,7 @@
 
                 if($currentBalance <= 30)
                 {
+
             ?>
 
             <h6 class="font-weight-bolder" style="color: #C82333">
@@ -67,6 +69,7 @@
             </h6>
 
             <?php
+
                 }
                 else if ($currentBalance > 30 && $currentBalance <= 70) {
 
@@ -91,6 +94,7 @@
 
                     <?php
                 }
+
             ?>
 
 
@@ -117,25 +121,25 @@
                 <i class="fas fa-shopping-bag fa-2x"></i>
                 <span class='badge badge-warning' id='cart-container'>
 
-                        <?php
-                        
-                            $_SESSION['redirectURL'] = 'index.php';
+                    <?php
 
-                            if (isset($_SESSION["products"]))
-                            {
-                                echo count($_SESSION["products"]);
-                            } 
-                            else {
-                                echo 0;
-                            }
+                        $_SESSION['redirectURL'] = 'index.php';
 
-                        ?>
+                        if (isset($_SESSION["products"]))
+                        {
+                            echo count($_SESSION["products"]);
+                        }
+                        else {
+                            echo 0;
+                        }
+
+                    ?>
 
                 </span>
             </a>
         </div>
 
-        <a href="login.php" class="btn btn-outline-success">
+        <a href="login.html" class="btn btn-outline-success">
             <i class="fas fa-sign-in-alt"></i>
             Login
         </a>

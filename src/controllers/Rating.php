@@ -4,6 +4,8 @@
  * Rating controller
  */
 
+use App\Models\DB;
+
 class Rating extends DB
 {
 

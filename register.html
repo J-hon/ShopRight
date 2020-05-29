@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ABC-SC Register User</title>
+    <link rel="stylesheet" href="assets/css/login.css">
+    <link rel="stylesheet" href="assets/css/fontawesome/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+
+    <link rel="icon" type="image/png" sizes="512x512" href="assets/img/favicon.png">
+</head>
+<body>
+
+    <div class="wrap">
+        <form class="login-form" action="register.php" method="post">
+            <div class="form-header">
+                <h3>Registration Form</h3>
+            </div>
+
+            <!-- Email Input -->
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" name="username" class="form-input">
+            </div>
+
+            <!-- Password Input -->
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" name="password" class="form-input">
+            </div>
+
+            <!-- Password Input -->
+            <div class="form-group">
+                <label>Retype Password</label>
+                <input type="password" name="confirm_password" class="form-input">
+            </div>
+
+            <!-- Login Button -->
+            <div class="form-group">
+                <button class="form-button" name="register" type="submit">
+                    Register
+                </button>
+            </div>
+
+            <div class="form-footer">
+                Registered? Click Here!
+                <a href="login.html">
+                    Log in
+                </a>
+            </div>
+
+            <div class="form-footer">
+                <a href="index.php">
+                    <i class="fa fa-angle-left"></i>
+                    <i class="fa fa-angle-left"></i>
+                    Go back home
+                </a>
+            </div>
+        </form>
+    </div><!--/.wrap-->
+
+</body>
+</html>

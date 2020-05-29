@@ -4,26 +4,30 @@
 
     $cart = new ShoppingCart();
 
-        if (isset($_POST["product_code"]))
-        {
-            $cart->addProduct();
-        }
+    // add product to cart
+    if (isset($_POST["product_code"]))
+    {
+        $cart->addProduct();
+    }
 
-        if(isset($_GET["remove_code"]) && isset($_SESSION["products"]))
-        {
-            $cart->removeProduct();
-        }
+    // remove product from cart
+    if(isset($_GET["remove_code"]) && isset($_SESSION["products"]))
+    {
+        $cart->removeProduct();
+    }
 
-        if(isset($_GET["update_quantity"]) && isset($_SESSION["products"]))
-        {
-            $cart->updateCartQuantity();
-        }
+    // update quantity of products in cart
+    if(isset($_GET["update_quantity"]) && isset($_SESSION["products"]))
+    {
+        $cart->updateCartQuantity();
+    }
 
-        if (isset($_GET['action']))
+    // clear products in cart
+    if (isset($_GET['action']))
+    {
+        if ($_GET['action'] == 'clear')
         {
-            if ($_GET['action'] == 'clear')
-            {
-                $cart->clearCart();
-                header('Location: cart.php');
-            }
+            $cart->clearCart();
+            header('Location: cart.php');
         }
+    }

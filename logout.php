@@ -4,5 +4,3 @@
 
     $user = new Login();
     $user->user_logout();
-
-?>

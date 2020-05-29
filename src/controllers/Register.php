@@ -4,6 +4,8 @@
  * Register controller
  */
 
+use App\Models\DB;
+
 class Register extends DB
 {
 

@@ -1,9 +1,11 @@
 <?php
 
     include_once 'includes/autoloader.inc.php';
-    include 'layouts/header.php';
+    include_once 'layouts/header.php';
 
-    $db = new DB();
+    use App\Models\DB;
+
+    $db = new DB;
 
 ?>
 
@@ -61,6 +63,6 @@
 
 <?php
 
-    include('layouts/footer.php');
+    include_once 'layouts/footer.php';
 
 ?>

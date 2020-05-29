@@ -19,13 +19,13 @@ $(document).ready(function()
 
 		// $(this).parent().parent().fadeOut();
 		$.getJSON("manage_cart.php",
-		{
-			"update_quantity" : pcode,
-			"quantity" : quantity
-		}, function(data)
-		{
-			window.location.reload();
-		});
+			{
+				"update_quantity" : pcode,
+				"quantity" : quantity
+			}, function(data)
+			{
+				window.location.reload();
+			});
 	}
 
 	// Add product to cart

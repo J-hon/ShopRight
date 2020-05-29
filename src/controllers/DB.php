@@ -4,6 +4,11 @@
  * Database controller
  */
 
+declare(strict_types = 1);
+
+namespace App\Models;
+use \PDO;
+
 session_start();
 error_reporting(0);
 
@@ -27,6 +32,9 @@ class DB
         $this->dsn = $this->connectDB();
     }
 
+    /**
+     * @return PDO
+     */
     public function connectDB()
     {
         try
@@ -34,7 +42,7 @@ class DB
             $this->con = new PDO($this->server, $this->user,$this->password,$this->options);
             return $this->con;
         }
-        catch (PDOException $e)
+        catch (\PDOException $e)
         {
             echo "There is some problem in connection: " . $e->getMessage();
         }

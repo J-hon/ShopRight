@@ -4,15 +4,17 @@
  * Checkout controller
  */
 
+use App\Models\DB;
+
 class Checkout extends DB
 {
     protected $shipping_cost;
     protected $total = 0;
     protected $subTotal = 0;
     protected $user_id;
-    public $bal;
     protected $no_of_items;
     protected $shipping_cost_value;
+    public $bal;
 
     public function __construct()
     {
@@ -36,19 +38,24 @@ class Checkout extends DB
     {
         $this->shipping_cost_value = $_POST['radioGroup'];
 
-        if ($this->shipping_cost_value == "5") {
-            $this->shipping_cost = 5;
-        } else {
+        if ($this->shipping_cost_value === "0") {
             $this->shipping_cost = 0;
+        } else {
+            $this->shipping_cost = 5;
         }
 
         return $this->shipping_cost;
     }
 
-    public function getTotal(float $price, int $qty, float $shipping_cost): float
+    /**
+     * @param float $price
+     * @param int $qty
+     * @return float
+     */
+    public function getTotal(float $price, int $qty): float
     {
         $this->subTotal = ($price * $qty);
-        $this->total = $this->total + $this->subTotal + $shipping_cost;
+        $this->total = $this->total + $this->subTotal;
 
         return $this->total;
     }
@@ -65,7 +72,7 @@ class Checkout extends DB
         $query->execute([$this->bal, $this->user_id]);
     }
 
-    public function limit()
+    public function limit($total)
     {
         $stmt = $this->dsn->prepare("SELECT current_balance FROM `users` WHERE id = ?");
         $stmt->execute([$this->user_id]);
@@ -75,7 +82,7 @@ class Checkout extends DB
             $balance = $res['current_balance'];
         }
 
-        if (($this->total) > $balance)
+        if (($total) > $balance)
         {
             die('Not enough money left');
         }

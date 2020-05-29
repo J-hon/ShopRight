@@ -1,7 +1,7 @@
 <?php
 
     include_once 'includes/autoloader.inc.php';
-    include 'layouts/header.php';
+    include_once 'layouts/header.php';
 
     $shop = new ShoppingCart();
     $currency = $shop->getCurrency();
@@ -142,10 +142,10 @@
 
                         <?php
 
-                        if (isset($total))
-                        {
+                            if (isset($total))
+                            {
 
-                            ?>
+                        ?>
 
                             <td class="text-center cart-products-total">
                                 <h6 style="margin: 0px 130px 0px 130px">Total: <strong>
@@ -167,8 +167,7 @@
                 <?php
 
                     }
-                    else
-                    {
+                    else {
                         echo "Your Cart is empty";
 
                 ?>
@@ -195,7 +194,7 @@
         </div>
 <?php
 
-    include('layouts/footer.php');
+    include_once 'layouts/footer.php';
 
 ?>
 
@@ -238,13 +237,11 @@
             swal("Please select a shipping option!");
             return false;
         }
-        else if (x[1].checked && !(y.value))
-        {
+        else if (x[1].checked && !(y.value)) {
             swal("Please insert your shipping address!");
             return false;
         }
-        else
-        {
+        else {
             return true;
         }
 

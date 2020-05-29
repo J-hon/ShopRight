@@ -4,6 +4,8 @@
  * Shopping cart controller
  */
 
+use App\Models\DB;
+
 setlocale(LC_MONETARY,"en_US");
 
 class ShoppingCart extends DB
@@ -79,6 +81,5 @@ class ShoppingCart extends DB
     {
         unset($_SESSION['products']);
     }
-
 
 }

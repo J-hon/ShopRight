@@ -4,6 +4,8 @@
  * Login controller
  */
 
+use App\Models\DB;
+
 class Login extends DB
 {
     public $user_id;
@@ -18,6 +20,8 @@ class Login extends DB
     }
 
     /**
+     * @param string $username
+     * @param string $password
      * @return bool
      */
     public function login(string $username, string $password): bool
@@ -48,6 +52,7 @@ class Login extends DB
     }
 
     // check user session
+
     public function get_session()
     {
         if (isset($_SESSION['login']))

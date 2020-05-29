@@ -1,6 +1,6 @@
 <?php
 
-    include 'layouts/header.php';
+    include_once 'layouts/header.php';
     include_once 'includes/autoloader.inc.php';
 
     $checkout = new Checkout();
@@ -9,8 +9,11 @@
     if (!$user->get_session())
     {
         $_SESSION['redirectURL'] = $_SERVER['REQUEST_URI'];
-        header('Location: login.php');
+        header('Location: login.html');
     }
+
+    $shipping_cost = 0;
+    $address = '';
 
     // get shipping cost
     if (isset($_POST['radioGroup']))
@@ -39,8 +42,7 @@
                                 Shipping address: ".$_POST['ship_address'].
                             "</p>";
             }
-            else
-            {
+            else {
                 $address = '';
             }
     ?>
@@ -93,15 +95,17 @@
             <?php
 
                 // calculate cost total of products.
-                $total = $checkout->getTotal($product_price, $product_qty, $shipping_cost);
+                $total = $checkout->getTotal($product_price, $product_qty);
 
             }
+
+                $total += $shipping_cost;
 
                 // get remaining balance.
                 $checkout->bal = $user_bal - $total;
 
                 // allow transaction only if order total <= current balance
-                $checkout->limit();
+                $checkout->limit($total);
 
                 // insert data into orders table
                 $checkout->saveOrder();
@@ -152,8 +156,7 @@
             unset($_SESSION['products']);
 
             }
-            else
-            {
+            else {
                 echo "Your Cart is empty";
             }
         ?>
@@ -163,6 +166,6 @@
 
 <?php
 
-    include('layouts/footer.php');
+    include_once 'layouts/footer.php';
 
 ?>
