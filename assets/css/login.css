@@ -57,10 +57,12 @@ body {
     width: 100%;
     text-transform: uppercase;
     cursor: pointer;
+    transition: .5s ease;
 }
 
 .form-button:hover {
-    background: #69c8e7;
+    background: #1899c4;
+    border-radius: 20px;
 }
 
 .form-header {
