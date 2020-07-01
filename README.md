@@ -13,4 +13,4 @@ Step 2: Import abc_sc.sql into your database. (SQL or MySQL)
 
 Step 3: You're good to go.
 
-Give a star if you found useful.
+Give a star if you found useful. :)
